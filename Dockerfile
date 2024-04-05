@@ -1,6 +1,6 @@
 FROM summerwind/actions-runner:latest
 
-RUN apt update -y && apt upgrade -y
+RUN sudo apt update -y && sudo apt upgrade -y
 
 RUN sudo apt update -y \
   && umask 0002 \
@@ -33,16 +33,16 @@ RUN \
   # Download the Microsoft repository keys
   wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/powershell_7.4.1-1.deb_amd64.deb && \
   dpkg -i powershell_7.4.1-1.deb_amd64.deb && \
-  apt-get install -f && \
+  sudo apt install -f && \
   # Delete the downloaded package file
   rm powershell_7.4.1-1.deb_amd64.deb && \
   # Install GitHub CLI
   curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
   && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-  && apt update -y \
-  && apt install gh -y \
-  && apt install maven -y
+  && sudo apt update -y \
+  && sudo apt install gh -y \
+  && sudo apt install maven -y
 
 RUN \
   #add MS repo
@@ -54,10 +54,10 @@ RUN \
   # Clean up
   rm packages-microsoft-prod.deb && \
   # Update packages
-  apt update && \
+  sudo apt update && \
   # dotnet install
-  apt update && \
-  apt install -y dotnet-sdk-8.0 && \
+  sudo apt update && \
+  sudo apt install -y dotnet-sdk-8.0 && \
   dotnet workload install wasm-tools && \
   #Add coverlet
   dotnet tool install --global coverlet.console && \
