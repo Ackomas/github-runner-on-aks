@@ -47,3 +47,12 @@ RUN \
   sudo dotnet tool install --global coverlet.console && \
   #Hack - Update and repair workloads
   sudo dotnet workload update && sudo dotnet workload repair
+
+RUN \
+  # PowerShell
+  # Download the Microsoft repository keys
+  sudo wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/powershell_7.4.1-1.deb_amd64.deb && \
+  sudo dpkg -i powershell_7.4.1-1.deb_amd64.deb && \
+  sudo apt install -f && \
+  # Delete the downloaded package file
+  sudo rm powershell_7.4.1-1.deb_amd64.deb
