@@ -1,5 +1,12 @@
 FROM summerwind/actions-runner:latest
 
+FROM cruizba/ubuntu-dind as ubuntu-dind
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y --no-install-recommends wget
+
+FROM ubuntu-dind as github-runner
 ARG REFRESH="5"
 
 # allow installing when the main user is root
